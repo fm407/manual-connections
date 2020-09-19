@@ -107,7 +107,8 @@ Address = $(echo "$wireguard_json" | jq -r '.peer_ip')
 PrivateKey = $privKey
 ## If you want wg-quick to also set up your DNS, uncomment the line below.
 DNS = $(echo "$wireguard_json" | jq -r '.dns_servers[0]')
-#PreDown = resolvconf -d pia
+# Change script location if necessary
+PostDown = /usr/src/manual-connections/postdown.sh
 
 [Peer]
 PublicKey = $(echo "$wireguard_json" | jq -r '.server_key')
@@ -152,4 +153,5 @@ $ PIA_TOKEN=$WG_TOKEN \\
 PIA_TOKEN=$WG_TOKEN \
   PF_GATEWAY="$(echo "$wireguard_json" | jq -r '.server_vip')" \
   PF_HOSTNAME="$WG_HOSTNAME" \
-  ./port_forwarding.sh
+  ./port_forwarding.sh &
+
