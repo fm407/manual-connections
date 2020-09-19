@@ -71,7 +71,7 @@ export payload_and_signature
 # Check if the payload and the signature are OK.
 # If they are not OK, just stop the script.
 if [ "$(echo "$payload_and_signature" | jq -r '.status')" != "OK" ]; then
-  echo "\e[31mThe payload_and_signature variable does not contain an OK status.\e[0m"
+  echo -e "\e[31mThe payload_and_signature variable does not contain an OK status.\e[0m"
   exit 1
 fi
 
