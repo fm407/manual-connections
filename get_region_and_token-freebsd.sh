@@ -20,22 +20,13 @@
 # SOFTWARE.
 
 # Check if bash is installed
-function getbash {
-which bash > /dev/null
-if [ "$?" = "0" ];
+if ! command -v bash &> /dev/null
 then
-    echo -e "\e[32mbash found!\e[0m"
-    echo
-else
     echo -e "\e[31mERROR: bash not found. Please install bash with: pkg install bash and try again!\e[0m"
     exit 1
 fi
-}
-
-getbash
 
 # Gather PIA username and password
-
 read -p "PIA Username: " PIA_USER
 
 unset PIA_PASS
