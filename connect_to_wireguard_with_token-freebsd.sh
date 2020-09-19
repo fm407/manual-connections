@@ -19,8 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#PIA_PF=true
-
 dir=/etc/wireguard
 if [[ ! -e $dir ]]; then
     mkdir $dir
