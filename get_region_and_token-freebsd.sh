@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-read -p "Do you want to connect (y/n)?" -n 1 -r
+read -p "Do you want to connect (y/n)? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -27,7 +27,7 @@ then
     export PIA_AUTOCONNECT
 fi
 
-read -p "Do you want to enable port forwarding (y/n) ?" -n 1 -r
+read -p "Do you want to enable port forwarding (y/n)? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
