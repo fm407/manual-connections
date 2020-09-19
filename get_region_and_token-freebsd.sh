@@ -19,14 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Check if bash is installed
+PIA_AUTOCONNECT=wireguard
+
 if ! command -v bash &> /dev/null
 then
     echo -e "\e[31mERROR: bash not found. Please install bash with: pkg install bash and try again!\e[0m"
     exit 1
 fi
 
-# Gather PIA username and password
 read -p "PIA Username: " PIA_USER
 
 unset PIA_PASS
@@ -126,17 +126,17 @@ bestServer_OT_hostname="$(echo $regionData | jq -r '.servers.ovpntcp[0].cn')"
 bestServer_OU_IP="$(echo $regionData | jq -r '.servers.ovpnudp[0].ip')"
 bestServer_OU_hostname="$(echo $regionData | jq -r '.servers.ovpnudp[0].cn')"
 
-echo "The script found the best servers from the region closest to you.
+echo -e "The script found the best servers from the region closest to you.
 When connecting to an IP (no matter which protocol), please verify
 the SSL/TLS certificate actually contains the hostname so that you
 are sure you are connecting to a secure server, validated by the
 PIA authority. Please find bellow the list of best IPs and matching
 hostnames for each protocol:
-Meta Services: $bestServer_meta_IP // $bestServer_meta_hostname
+\e[32mMeta Services: $bestServer_meta_IP // $bestServer_meta_hostname
 WireGuard: $bestServer_WG_IP // $bestServer_WG_hostname
 OpenVPN TCP: $bestServer_OT_IP // $bestServer_OT_hostname
 OpenVPN UDP: $bestServer_OU_IP // $bestServer_OU_hostname
-"
+\e[0m"
 
 if [[ ! $PIA_USER || ! $PIA_PASS ]]; then
   echo If you want this script to automatically get a token from the Meta
@@ -194,4 +194,3 @@ $ WG_TOKEN=\"$token\" \\
 
 PIA_PF=$PIA_PF WG_TOKEN="$token" WG_SERVER_IP=$bestServer_WG_IP \
   WG_HOSTNAME=$bestServer_WG_hostname ./connect_to_wireguard_with_token.sh
-  
