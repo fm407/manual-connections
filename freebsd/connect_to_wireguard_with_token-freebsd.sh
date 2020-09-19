@@ -38,7 +38,7 @@ ipv6_activate_all_interfaces="NO"
 if ! command -v wg-quick &> /dev/null
 then
     echo "wg-quick could not be found."
-    echo "Please install wireguard-tools"
+    echo "Please install wireguard"
     exit 1
 fi
 
