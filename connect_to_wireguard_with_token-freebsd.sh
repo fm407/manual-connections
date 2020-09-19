@@ -28,16 +28,17 @@ fi
 
 # PIA currently does not support IPv6. In order to be sure your VPN
 # connection does not leak, it is best to disabled IPv6 altogether.
-echo 'You should consider disabling IPv6 by running:
-sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sysctl -w net.ipv6.conf.default.disable_ipv6=1
+echo 'You should consider disabling IPv6 by adding the following lines to /etc/rc.conf:
+ip6addrctl_enable="NO"
+ip6addrctl_policy="ipv4_prefer"
+ipv6_activate_all_interfaces="NO"
 '
 
 # check if the wireguard tools have been installed
 if ! command -v wg-quick &> /dev/null
 then
     echo "wg-quick could not be found."
-    echo "Please install wireguard-tools"
+    echo "Please install wireguard: pkg install wireguard"
     exit 1
 fi
 
@@ -97,7 +98,7 @@ echo "
 Address = $(echo "$wireguard_json" | jq -r '.peer_ip')
 PrivateKey = $privKey
 ## If you want wg-quick to also set up your DNS, uncomment the line below.
-# DNS = $(echo "$json" | jq -r '.dns_servers[0]')
+DNS = $(echo "$json" | jq -r '.dns_servers[0]')
 
 [Peer]
 PublicKey = $(echo "$wireguard_json" | jq -r '.server_key')
