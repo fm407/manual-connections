@@ -19,27 +19,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# Enable Autoconnect? y/n
+
 read -p "Do you want to connect (y/n)? " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     PIA_AUTOCONNECT=wireguard
     export PIA_AUTOCONNECT
 fi
 
+# Enable port forwarding? y/n
+
 read -p "Do you want to enable port forwarding (y/n)? " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     PIA_PF=true
     export PIA_PF
 fi
 
+# Do we have bash?
+
 if ! command -v bash &> /dev/null
 then
     echo -e "\e[31mERROR: bash not found. Please install bash with: pkg install bash and try again!\e[0m"
     exit 1
 fi
+
+# PIA credentials
 
 read -p "PIA Username: " PIA_USER
 
