@@ -71,7 +71,7 @@ export payload_and_signature
 # Check if the payload and the signature are OK.
 # If they are not OK, just stop the script.
 if [ "$(echo "$payload_and_signature" | jq -r '.status')" != "OK" ]; then
-  echo "The payload_and_signature variable does not contain an OK status."
+  echo "\e[31mThe payload_and_signature variable does not contain an OK status.\e[0m"
   exit 1
 fi
 
@@ -114,7 +114,7 @@ while true; do
     # This script will exit in 2 months, since the port will expire.
     export bind_port_response
     if [ "$(echo "$bind_port_response" | jq -r '.status')" != "OK" ]; then
-      echo "The API did not return OK when trying to bind port. Exiting."
+      echo -e "\e[31mThe API did not return OK when trying to bind port. Exiting.\e[0m"
       exit 1
     fi
     echo Port $port refreshed on $(date). \
