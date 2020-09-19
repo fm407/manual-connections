@@ -19,7 +19,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-PIA_AUTOCONNECT=wireguard
+read -p "Do you want to connect (y/n)?" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    PIA_AUTOCONNECT=wireguard
+    export PIA_AUTOCONNECT
+fi
+
+read -p "Do you want to enable port forwarding (y/n) ?" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    PIA_PF=true
+    export PIA_PF
+fi
 
 if ! command -v bash &> /dev/null
 then
