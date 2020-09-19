@@ -20,7 +20,7 @@
 # SOFTWARE.
 
 read -p "Do you want to connect (y/n)? " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     PIA_AUTOCONNECT=wireguard
@@ -28,22 +28,22 @@ then
 fi
 
 read -p "Do you want to enable port forwarding (y/n)? " -n 1 -r
-echo    # (optional) move to a new line
+echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     PIA_PF=true
     export PIA_PF
 fi
 
-
-#PIA_AUTOCONNECT=wireguard
-#PIA_PF=true
+# Check if bash exist
 
 if ! command -v bash > /dev/null
 then
     echo -e "\e[31mERROR: bash not found. Please install bash with: pkg install bash and try again!\e[0m"
     exit 1
 fi
+
+# Grab auth info
 
 read -p "PIA Username: " PIA_USER
 
