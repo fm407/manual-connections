@@ -20,7 +20,7 @@
 # SOFTWARE.
 
 # Check if bash is installed
-function getreq {
+function getbash {
 which bash > /dev/null
 if [ "$?" = "0" ];
 then
@@ -32,7 +32,7 @@ else
 fi
 }
 
-getreq
+getbash
 
 # Gather PIA username and password
 
