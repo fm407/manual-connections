@@ -99,6 +99,7 @@ Address = $(echo "$wireguard_json" | jq -r '.peer_ip')
 PrivateKey = $privKey
 ## If you want wg-quick to also set up your DNS, uncomment the line below.
 DNS = $(echo "$wireguard_json" | jq -r '.dns_servers[0]')
+PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT PreDown = iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
 
 [Peer]
 PublicKey = $(echo "$wireguard_json" | jq -r '.server_key')
