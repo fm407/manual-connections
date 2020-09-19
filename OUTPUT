@@ -1,4 +1,4 @@
-]# ./get_region_and_token.sh
+# ./get_region_and_token.sh
 Do you want to connect (y/n)?y
 Do you want to enable port forwarding (y/n) ?y
 PIA Username: pxxxxxx
