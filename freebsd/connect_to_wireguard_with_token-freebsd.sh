@@ -19,8 +19,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#PIA_PF=true
-
 dir=/etc/wireguard
 if [[ ! -e $dir ]]; then
     mkdir $dir
@@ -36,13 +34,15 @@ ip6addrctl_policy="ipv4_prefer"
 ipv6_activate_all_interfaces="NO"
 '
 
-# check if the wireguard tools have been installed
+# Check if the wireguard tools have been installed
 if ! command -v wg-quick &> /dev/null
 then
     echo "wg-quick could not be found."
     echo "Please install wireguard-tools"
     exit 1
 fi
+
+# Check if the basg tools have been installed
 
 if ! command -v bash &> /dev/null
 then
