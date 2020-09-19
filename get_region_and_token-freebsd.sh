@@ -19,6 +19,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# Check if bash is installed
+function getreq {
+which bash
+if [ "$?" = "0" ];
+then
+    echo "bash found"
+else
+    echo -e "\e[31mERROR: bash not found. Please approve installation.\e[0m"
+    echo
+    echo
+    pkg install bash
+    if [ "$?" = "0" ];
+    then echo "bash installed successfully."
+    fi
+fi
+}
+
+getreq
+
+
 read -p "PIA Username: " PIA_USER
 
 unset PIA_PASS
@@ -103,7 +123,7 @@ regionData="$( echo $all_region_data |
   '.regions[] | select(.id==$REGION_ID)')"
 
 echo -n The closest region is "$(echo $regionData | jq -r '.name')"
-if echo $regionData | jq -r '.geo' | grep true; then 
+if echo $regionData | jq -r '.geo' | grep true > /dev/null; then 
   echo " (geolocated region)."
 else 
   echo "."
