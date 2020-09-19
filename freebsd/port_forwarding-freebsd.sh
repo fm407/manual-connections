@@ -119,7 +119,8 @@ while true; do
     fi
     echo Port $port refreshed on $(date). \
       This port will expire on $(date -jf %Y-%m-%dT%H:%M:%S "$expires_at")
-
+    echo
+    echo -e "\e[32mSucces!! Press any key to return to bash\e[0m"
     # sleep 15 minutes
     sleep 900 
 done
