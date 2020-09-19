@@ -19,6 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+#PIA_PF=true
+
 dir=/etc/wireguard
 if [[ ! -e $dir ]]; then
     mkdir $dir
@@ -38,9 +40,17 @@ ipv6_activate_all_interfaces="NO"
 if ! command -v wg-quick &> /dev/null
 then
     echo "wg-quick could not be found."
-    echo "Please install wireguard: pkg install wireguard"
+    echo "Please install wireguard-tools"
     exit 1
 fi
+
+if ! command -v bash &> /dev/null
+then
+    echo "bash could not be found."
+    echo "Please install bash: pkg install bash"
+    exit 1
+fi
+
 
 # Check if the mandatory environment variables are set.
 if [[ ! $WG_SERVER_IP || ! $WG_HOSTNAME || ! $WG_TOKEN ]]; then
@@ -99,7 +109,7 @@ Address = $(echo "$wireguard_json" | jq -r '.peer_ip')
 PrivateKey = $privKey
 ## If you want wg-quick to also set up your DNS, uncomment the line below.
 DNS = $(echo "$wireguard_json" | jq -r '.dns_servers[0]')
-PostUp = iptables -I OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT PreDown = iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+#PreDown = resolvconf -d pia
 
 [Peer]
 PublicKey = $(echo "$wireguard_json" | jq -r '.server_key')
